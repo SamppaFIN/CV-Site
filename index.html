@@ -25,7 +25,7 @@
         <a href="#projects" data-i18n="nav.projects">Projects</a>
         <a href="#experience" data-i18n="nav.experience">Experience</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
-        <a href="../ui-techniques-showcase.html" class="nav-link" target="_blank" rel="noopener">Effects Showcase</a>
+        <a href="ui-techniques-showcase.html" class="nav-link" id="openFx" rel="noopener">Effects Showcase</a>
       </nav>
       <div class="toggles">
         <a class="toggle" href="https://github.com/SamppaFIN" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
@@ -161,6 +161,15 @@
           <!-- markdown rendered here -->
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- SPA Effects Layer (iframe) -->
+  <div id="fxLayer" class="fx-layer" style="display:none;">
+    <div class="fx-backdrop" data-close-fx></div>
+    <div class="fx-dialog">
+      <button class="modal-close" id="fxClose" aria-label="Close">×</button>
+      <iframe id="fxFrame" src="" title="Effects Showcase" loading="lazy"></iframe>
     </div>
   </div>
 

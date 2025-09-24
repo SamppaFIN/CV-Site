@@ -11,6 +11,22 @@
     const brand = document.getElementById('brandText');
     brand?.addEventListener('click', (e)=> runSparkBurst(e.clientX, e.clientY));
     brand?.addEventListener('dblclick', ()=> runParticlesOnce());
+
+    // SPA effects layer
+    const fxLink = document.getElementById('openFx');
+    const fxLayer = document.getElementById('fxLayer');
+    const fxFrame = document.getElementById('fxFrame');
+    const fxClose = document.getElementById('fxClose');
+    fxLink?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      // Load showcase from repo root path relative to cv-site
+      fxFrame.src = '../ui-techniques-showcase.html';
+      fxLayer.style.display = 'block';
+      requestAnimationFrame(()=> fxLayer.classList.add('show'));
+    });
+    fxLayer?.addEventListener('click', (e)=>{ if(e.target.hasAttribute('data-close-fx')) closeFx(); });
+    fxClose?.addEventListener('click', closeFx);
+    function closeFx(){ fxLayer.classList.remove('show'); setTimeout(()=>{ fxLayer.style.display='none'; fxFrame.src=''; }, 200); }
   });
 
   // Experience data (from user's CV)
