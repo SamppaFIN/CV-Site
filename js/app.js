@@ -162,6 +162,12 @@
     // Effects showcase: brief particle show
     const btn = document.getElementById('effectsShowcase');
     btn?.addEventListener('click', runParticlesOnce);
+
+    // Init interactive cards
+    initTiltCards('.skills-grid .card');
+    initTiltCards('.projects-grid .project');
+    initMagneticHover('.skills-grid .card');
+    initMagneticHover('.projects-grid .project');
   }
 
   function runParticlesOnce(){
@@ -245,6 +251,49 @@
   }
 
   // Magnetic buttons removed for simplified demo
+  function initTiltCards(selector){
+    document.querySelectorAll(selector).forEach(el=>{
+      const element = el;
+      const maxTilt = 8; // degrees
+      function onMove(e){
+        const rect = element.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const tiltX = (py - 0.5) * -2 * maxTilt;
+        const tiltY = (px - 0.5) * 2 * maxTilt;
+        element.style.transform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+        element.classList.add('tilted');
+      }
+      function reset(){ element.style.transform='translateZ(0)'; element.classList.remove('tilted'); }
+      element.addEventListener('mousemove', onMove);
+      element.addEventListener('mouseleave', reset);
+      element.addEventListener('blur', reset, true);
+    });
+  }
+
+  function initMagneticHover(selector){
+    document.querySelectorAll(selector).forEach(el=>{
+      const element = el;
+      // Find focusable children to magnetize; fallback to title
+      const targets = element.querySelectorAll('button, a, .title');
+      targets.forEach(t=> t.classList.add('magnetic-child'));
+      const strength = 12; // px
+      function onMove(e){
+        const rect = element.getBoundingClientRect();
+        const cx = rect.left + rect.width/2;
+        const cy = rect.top + rect.height/2;
+        const dx = (e.clientX - cx) / rect.width;
+        const dy = (e.clientY - cy) / rect.height;
+        targets.forEach(t=>{
+          t.style.transform = `translate(${dx*strength}px, ${dy*strength}px)`;
+        });
+      }
+      function reset(){ targets.forEach(t=> t.style.transform='translate(0,0)'); }
+      element.addEventListener('mousemove', onMove);
+      element.addEventListener('mouseleave', reset);
+      element.addEventListener('blur', reset, true);
+    });
+  }
 
   document.addEventListener('DOMContentLoaded', ()=>{ renderProjects(); renderExperience(); initEffects(); I18N.applyTranslations(); });
 })();

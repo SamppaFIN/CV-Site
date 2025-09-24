@@ -157,3 +157,39 @@ html[data-theme="light"] .modal-body pre { background: rgba(0,0,0,.06); }
   .skills-grid { grid-template-columns: 1fr; }
   .projects-grid { grid-template-columns: 1fr; }
 }
+
+/* Text spacing improvements */
+.section .section-content p { margin-bottom: 20px; }
+.project .md p { margin-bottom: 20px; }
+.modal-body p { margin-bottom: 20px; }
+.modal-body li { margin-bottom: 15px; }
+
+/* Chips and tags with more room */
+.tags li { margin: 0 15px 15px 0; }
+.fx-chip { margin: 6px 15px 0 0; padding: 6px 15px; }
+
+/* Ensure card inner content breathes */
+.card, .fx-card { padding: 20px; }
+.project .content { padding: 20px; }
+
+/* Additional spacing for profile section */
+.profile-section p { margin-bottom: 25px; }
+.profile-section h3 { margin-bottom: 15px; margin-top: 30px; }
+
+/* About content left margin */
+.about-content { margin-left: 20px; }
+#about .section-title { margin-left: 20px; }
+
+/* Interactive cards: subtle tilt and magnetic hover */
+.card, .project {
+  transform: translateZ(0);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  will-change: transform;
+}
+.card.tilted, .project.tilted {
+  box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
+}
+.magnetic-child {
+  transition: transform 180ms ease;
+  will-change: transform;
+}
