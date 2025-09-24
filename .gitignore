@@ -1,0 +1,15 @@
+# Node/editor artifacts
+.DS_Store
+Thumbs.db
+*.log
+
+# Local builds
+/dist
+/build
+
+# Ignore large docs and working notes
+/docs/**
+!docs/AURORA_LOG_.md
+
+# Env
+.env
