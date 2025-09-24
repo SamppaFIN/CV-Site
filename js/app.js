@@ -19,10 +19,52 @@
     const fxClose = document.getElementById('fxClose');
     fxLink?.addEventListener('click', (e)=>{
       e.preventDefault();
-      // Load showcase from repo root path relative to cv-site
-      fxFrame.src = '../ui-techniques-showcase.html';
+      const fxContent = document.getElementById('fxContent');
+      fxContent.innerHTML = `
+        <div class="ui-techniques-showcase" style="padding:16px;height:100%;">
+          <h2 style="margin:0 0 8px;">UI Techniques Showcase</h2>
+          <p class="subtle">Subtle, performant demos: 2.5D canvas, magnetic buttons, morphing cards.</p>
+          <div class="fx-grid">
+            <div class="fx-canvas-wrap"><canvas id="fxCanvas" width="900" height="540"></canvas></div>
+            <div class="fx-sidebar">
+              <div class="fx-card">
+                <h4>Canvas Controls</h4>
+                <div class="demo-controls">
+                  <button class="control-btn" id="fxBurst">Burst</button>
+                  <button class="control-btn" id="fxParticles">Particles</button>
+                  <button class="control-btn" id="fxColor">Color Cycle</button>
+                </div>
+                <div class="subtle">2.5D parallax orbits with glow trails.</div>
+              </div>
+              <div class="fx-card">
+                <h4>Magnetic Buttons</h4>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <div class="fx-magnet">Contact</div>
+                  <div class="fx-magnet">Projects</div>
+                  <div class="fx-magnet">CV</div>
+                </div>
+              </div>
+              <div class="fx-card fx-morph">
+                <h4>Morphing Card</h4>
+                <div class="fx-chip">UI/UX</div>
+                <div class="fx-chip">WebGL</div>
+                <div class="fx-chip">Performance</div>
+                <p class="subtle" style="margin-top:8px;">Hover to feel the gentle morph with depth.</p>
+              </div>
+            </div>
+          </div>
+        </div>`;
       fxLayer.style.display = 'block';
       requestAnimationFrame(()=> fxLayer.classList.add('show'));
+      // Wire demo buttons
+      document.getElementById('fxBurst')?.addEventListener('click', ()=>{
+        const rect = document.getElementById('fxCanvas').getBoundingClientRect();
+        runSparkBurst(rect.left+rect.width/2, rect.top+rect.height/2);
+      });
+      document.getElementById('fxParticles')?.addEventListener('click', runParticlesOnce);
+      document.getElementById('fxColor')?.addEventListener('click', ()=>{ canvasState.hueShift = (canvasState.hueShift+60)%360; });
+      initFxCanvas();
+      initMagnetics();
     });
     fxLayer?.addEventListener('click', (e)=>{ if(e.target.hasAttribute('data-close-fx')) closeFx(); });
     fxClose?.addEventListener('click', closeFx);
@@ -196,6 +238,49 @@
       t++; if(t<60){ raf=requestAnimationFrame(step);} else { cancelAnimationFrame(raf); document.body.removeChild(cover); }
     }
     step();
+  }
+
+  // Embedded FX Canvas (2.5D orbits and trails)
+  const canvasState = { hueShift: 0 };
+  function initFxCanvas(){
+    const canvas = document.getElementById('fxCanvas');
+    if(!canvas) return; const ctx = canvas.getContext('2d');
+    const stars = Array.from({length: 120}, ()=>({
+      a: Math.random()*Math.PI*2,
+      r: 40+Math.random()*220,
+      z: 0.6+Math.random()*0.8,
+      s: 0.002+Math.random()*0.006,
+      c: Math.random()*360
+    }));
+    let t=0, raf;
+    function step(){
+      ctx.fillStyle = 'rgba(10,10,15,.22)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+      const cx = canvas.width/2, cy = canvas.height/2;
+      stars.forEach(st=>{
+        st.a += st.s; const x = cx + Math.cos(st.a)*st.r; const y = cy + Math.sin(st.a)*st.r*0.6; const r = 1.2*st.z;
+        ctx.beginPath(); ctx.fillStyle = `hsla(${(st.c+canvasState.hueShift)%360},80%,60%,.9)`; ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+        // glow trail
+        ctx.beginPath(); ctx.strokeStyle = `hsla(${(st.c+canvasState.hueShift)%360},80%,60%,.25)`; ctx.moveTo(x,y); ctx.lineTo(cx,cy); ctx.stroke();
+      });
+      t++; raf = requestAnimationFrame(step);
+    }
+    cancelAnimationFrame(raf); step();
+  }
+
+  // Magnetic buttons subtle follow
+  function initMagnetics(){
+    document.querySelectorAll('.fx-magnet').forEach(btn=>{
+      let rx=0, ry=0; const max=10;
+      btn.addEventListener('mousemove', (e)=>{
+        const r = btn.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width/2));
+        const dy = (e.clientY - (r.top + r.height/2));
+        rx = Math.max(-max, Math.min(max, dx*0.1));
+        ry = Math.max(-max, Math.min(max, dy*0.1));
+        btn.style.transform = `translate(${rx}px, ${ry}px)`;
+      });
+      btn.addEventListener('mouseleave', ()=>{ btn.style.transform='translate(0,0)'; });
+    });
   }
 
   document.addEventListener('DOMContentLoaded', ()=>{ renderProjects(); renderExperience(); initEffects(); I18N.applyTranslations(); });

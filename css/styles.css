@@ -131,7 +131,20 @@ html[data-theme="light"] .modal-body pre { background: rgba(0,0,0,.06); }
 .fx-dialog { position: relative; width: min(1200px, 96%); height: min(86vh, 860px); margin: 5vh auto; border-radius: 16px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.55); transform: translateY(8px); opacity: 0; transition: transform .3s cubic-bezier(.2,.8,.2,1), opacity .3s ease; }
 .fx-layer.show .fx-backdrop { opacity: 1; }
 .fx-layer.show .fx-dialog { transform: translateY(0); opacity: 1; }
+.fx-content { width: 100%; height: 100%; overflow: auto; background: rgba(10,10,15,.94); }
 .fx-dialog iframe { width: 100%; height: 100%; border: none; background: #0a0a0f; }
+
+/* FX embedded demo components */
+.fx-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 14px; height: 100%; }
+.fx-canvas-wrap { position: relative; border: 1px solid var(--border); border-radius: 12px; background: #0b0d14; overflow: hidden; }
+.fx-sidebar { display: grid; gap: 12px; align-content: start; }
+.fx-card { background: var(--glass); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+.fx-card h4 { margin: 0 0 6px; font-size: 14px; font-weight: 800; }
+.fx-chip { display: inline-block; padding: 4px 8px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid var(--border); font-size: 12px; margin: 2px 4px 0 0; }
+.fx-magnet { display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--card); cursor: pointer; transition: transform .2s ease, background .2s ease; }
+.fx-magnet:hover { background: rgba(255,255,255,.08); transform: translateY(-2px); }
+.fx-morph { border-radius: 14px; padding: 14px; background: linear-gradient(135deg, rgba(74,158,255,.12), rgba(0,255,136,.10)); border: 1px solid var(--border); transition: transform .3s ease, border-color .3s ease; }
+.fx-morph:hover { transform: translateY(-3px) scale(1.01); border-color: var(--accent); }
 
 /* Responsive */
 @media (max-width: 960px) {
