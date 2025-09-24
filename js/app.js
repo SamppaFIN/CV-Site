@@ -15,7 +15,6 @@
     // SPA effects layer
     const fxLink = document.getElementById('openFx');
     const fxLayer = document.getElementById('fxLayer');
-    const fxFrame = document.getElementById('fxFrame');
     const fxClose = document.getElementById('fxClose');
     fxLink?.addEventListener('click', (e)=>{
       e.preventDefault();
@@ -56,7 +55,6 @@
         </div>`;
       fxLayer.style.display = 'block';
       requestAnimationFrame(()=> fxLayer.classList.add('show'));
-      // Wire demo buttons
       document.getElementById('fxBurst')?.addEventListener('click', ()=>{
         const rect = document.getElementById('fxCanvas').getBoundingClientRect();
         runSparkBurst(rect.left+rect.width/2, rect.top+rect.height/2);
@@ -68,7 +66,7 @@
     });
     fxLayer?.addEventListener('click', (e)=>{ if(e.target.hasAttribute('data-close-fx')) closeFx(); });
     fxClose?.addEventListener('click', closeFx);
-    function closeFx(){ fxLayer.classList.remove('show'); setTimeout(()=>{ fxLayer.style.display='none'; fxFrame.src=''; }, 200); }
+    function closeFx(){ fxLayer.classList.remove('show'); setTimeout(()=>{ fxLayer.style.display='none'; }, 200); }
   });
 
   // Experience data (from user's CV)
