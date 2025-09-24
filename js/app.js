@@ -1,10 +1,33 @@
 (function(){
   // Theme toggle
-  const themeBtn = document.getElementById('themeToggle');
-  function applyTheme(theme){ document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('theme', theme); themeBtn.textContent = theme==='light'?'☀️':'🌙'; }
+  function applyTheme(theme){ 
+    document.documentElement.setAttribute('data-theme', theme); 
+    localStorage.setItem('theme', theme); 
+    const themeBtn = document.getElementById('themeToggle');
+    if(themeBtn) themeBtn.textContent = theme==='light'?'☀️':'🌙'; 
+  }
   document.addEventListener('DOMContentLoaded', ()=>{
     applyTheme(localStorage.getItem('theme')||'light');
-    themeBtn?.addEventListener('click', ()=>{ const cur = document.documentElement.getAttribute('data-theme'); applyTheme(cur==='light'?'dark':'light'); });
+    const themeBtn = document.getElementById('themeToggle');
+    if(themeBtn) {
+      themeBtn.addEventListener('click', (e)=>{ 
+        e.preventDefault();
+        e.stopPropagation();
+        const cur = document.documentElement.getAttribute('data-theme'); 
+        console.log('Theme toggle clicked, current theme:', cur);
+        applyTheme(cur==='light'?'dark':'light'); 
+      });
+      // Also add touch events for mobile
+      themeBtn.addEventListener('touchend', (e)=>{ 
+        e.preventDefault();
+        e.stopPropagation();
+        const cur = document.documentElement.getAttribute('data-theme'); 
+        console.log('Theme toggle touched, current theme:', cur);
+        applyTheme(cur==='light'?'dark':'light'); 
+      });
+    } else {
+      console.log('Theme toggle button not found!');
+    }
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Easter-egg: brand name sparks
@@ -22,20 +45,71 @@
       if (!fxContent || !fxLayer) return;
       fxContent.innerHTML = `
         <div style="padding:16px;height:100%;">
-          <h2 style="margin:0 0 8px;">Effects Lab</h2>
-          <p class="subtle">Minimal, robust particle effects (vanilla.js).</p>
-          <div class="fx-card" style="margin-bottom:10px;">
-            <div class="demo-controls">
-              <button class="control-btn" id="fxBurst">Burst</button>
-              <button class="control-btn" id="fxParticles">Particles</button>
-              <button class="control-btn" id="fxColor">Color Cycle</button>
-              <button class="control-btn" id="fxClear">Clear</button>
+          <h2 style="margin:0 0 16px;">Effects Lab</h2>
+          <p class="subtle">Interactive effects showcase with multiple tabs.</p>
+          
+          <div class="fx-tabs">
+            <button class="fx-tab active" data-tab="particles">Particles</button>
+            <button class="fx-tab" data-tab="tetris">3D Tetris</button>
+            <button class="fx-tab" data-tab="waves">Waves</button>
+            <button class="fx-tab" data-tab="fractals">Fractals</button>
+          </div>
+          
+          <div class="fx-tab-content">
+            <div id="tab-particles" class="fx-tab-panel active">
+              <div class="fx-card" style="margin-bottom:10px;">
+                <div class="demo-controls">
+                  <button class="control-btn" id="fxBurst">Burst</button>
+                  <button class="control-btn" id="fxParticles">Particles</button>
+                  <button class="control-btn" id="fxColor">Color Cycle</button>
+                  <button class="control-btn" id="fxClear">Clear</button>
+                </div>
+              </div>
+              <div class="fx-canvas-wrap"><canvas id="fxCanvas" width="900" height="540"></canvas></div>
+            </div>
+            
+            <div id="tab-tetris" class="fx-tab-panel">
+              <div class="fx-card" style="margin-bottom:10px;">
+                <div class="demo-controls">
+                  <button class="control-btn" id="tetrisStart">Start Game</button>
+                  <button class="control-btn" id="tetrisPause">Pause</button>
+                  <button class="control-btn" id="tetrisReset">Reset</button>
+                  <button class="control-btn" id="tetrisRotate">Rotate</button>
+                </div>
+              </div>
+              <div class="fx-canvas-wrap"><canvas id="tetrisCanvas" width="900" height="540"></canvas></div>
+            </div>
+            
+            <div id="tab-waves" class="fx-tab-panel">
+              <div class="fx-card" style="margin-bottom:10px;">
+                <div class="demo-controls">
+                  <button class="control-btn" id="waveStart">Start Waves</button>
+                  <button class="control-btn" id="waveStop">Stop</button>
+                  <button class="control-btn" id="waveFreq">Change Freq</button>
+                </div>
+              </div>
+              <div class="fx-canvas-wrap"><canvas id="waveCanvas" width="900" height="540"></canvas></div>
+            </div>
+            
+            <div id="tab-fractals" class="fx-tab-panel">
+              <div class="fx-card" style="margin-bottom:10px;">
+                <div class="demo-controls">
+                  <button class="control-btn" id="fractalStart">Generate</button>
+                  <button class="control-btn" id="fractalZoom">Zoom In</button>
+                  <button class="control-btn" id="fractalReset">Reset</button>
+                </div>
+              </div>
+              <div class="fx-canvas-wrap"><canvas id="fractalCanvas" width="900" height="540"></canvas></div>
             </div>
           </div>
-          <div class="fx-canvas-wrap"><canvas id="fxCanvas" width="900" height="540"></canvas></div>
         </div>`;
       fxLayer.style.display = 'block';
       requestAnimationFrame(()=> fxLayer.classList.add('show'));
+      
+      // Tab switching
+      initFxTabs();
+      
+      // Particle effects
       document.getElementById('fxBurst')?.addEventListener('click', ()=>{
         const rect = document.getElementById('fxCanvas').getBoundingClientRect();
         runSparkBurst(rect.left+rect.width/2, rect.top+rect.height/2);
@@ -43,7 +117,12 @@
       document.getElementById('fxParticles')?.addEventListener('click', runParticlesOnce);
       document.getElementById('fxColor')?.addEventListener('click', ()=>{ canvasState.hueShift = (canvasState.hueShift+60)%360; });
       document.getElementById('fxClear')?.addEventListener('click', ()=>{ const c=document.getElementById('fxCanvas'); c?.getContext('2d')?.clearRect(0,0,c.width,c.height); });
+      
+      // Initialize all effects
       initFxCanvas();
+      init3DTetris();
+      initWaveEffect();
+      initFractalEffect();
     }
     fxLayer?.addEventListener('click', (e)=>{ if(e.target.hasAttribute('data-close-fx')) closeFx(); });
     fxClose?.addEventListener('click', closeFx);
@@ -92,24 +171,81 @@
 
   // Public projects only
   const projects = [
-    { id: 'Klitoritari', title: 'Klitoritari', img: 'https://images.unsplash.com/photo-1484821582734-6c6c9f99a672?q=80&w=1600&auto=format&fit=crop', md: `Multiplayer online adventure game prototype focused on fast iteration and immersive loops. Built to test networking, state sync and moment‑to‑moment feel.\nRepo: [Klitoritari](https://github.com/SamppaFIN/Klitoritari)  ·  Live: [App](https://klitoritari-a06bceac06e2.herokuapp.com/)` },
-    { id: 'NLP-AI', title: 'NLP-AI', img: 'https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=1600&auto=format&fit=crop', md: `Natural language processing experiments and agents. Compact playground to evaluate prompts, embeddings and pipelines.\nRepo: [NLP-AI](https://github.com/SamppaFIN/NLP-AI)  ·  Live: [App](https://kotinlp-f2f36174831d.herokuapp.com/)` },
-    { id: 'HealthConnectAI', title: 'HealthConnectAI', img: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1600&auto=format&fit=crop', md: `Web app to ask health‑related questions via Perplexity AI with a focused UI. TypeScript codebase exploring API orchestration.\nRepo: [HealthConnectAI](https://github.com/SamppaFIN/HealthConnectAI)` },
-    { id: 'AngelicWaves', title: 'AngelicWaves', img: 'https://images.unsplash.com/photo-1494233892892-84542a694e22?q=80&w=1600&auto=format&fit=crop', md: `Fun frequency detector/visualizer in TypeScript. A playground for audio APIs and signal UX.\nRepo: [AngelicWaves](https://github.com/SamppaFIN/AngelicWaves)  ·  Live: [Info](https://angelicwaves-25d1c2a5b069.herokuapp.com/)` },
-    { id: 'RAG-Demo', title: 'RAG-Demo', img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop', md: `Python demo for Retrieval‑Augmented Generation. Shows retrieval, context building and answer synthesis.\nRepo: [RAG-Demo](https://github.com/SamppaFIN/RAG-Demo)` },
-    { id: 'MergeMaster', title: 'MergeMaster', img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop', md: `A small browser game built in one hour with my 8‑year‑old son — joyful learning and rapid prototyping. Simple HTML/JS with playful polish.\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)` },
-    { id: 'CV', title: 'CV', img: 'https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=1600&auto=format&fit=crop', md: `Personal CV repo that inspired this new bilingual site. Focus on clarity, responsiveness and subtle motion.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [Old site](https://samppafin.github.io/CV/#)` },
-    { id: 'EldrichHorror', title: 'EldrichHorror', img: 'https://images.unsplash.com/photo-1520975922284-9e0ce9f76ef4?q=80&w=1600&auto=format&fit=crop', md: `TypeScript experiments that later informed Eldritch Sanctuary. Mechanics spikes and rendering tests.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)` }
+    { 
+      id: 'Klitoritari', 
+      title: 'Klitoritari', 
+      titleFi: 'Klitoritari',
+      img: 'https://images.unsplash.com/photo-1484821582734-6c6c9f99a672?q=80&w=1600&auto=format&fit=crop', 
+      md: `Multiplayer online adventure game prototype focused on fast iteration and immersive loops. Built to test networking, state sync and moment‑to‑moment feel.\nRepo: [Klitoritari](https://github.com/SamppaFIN/Klitoritari)  ·  Live: [App](https://klitoritari-a06bceac06e2.herokuapp.com/)`,
+      mdFi: `Moninpelimäinen online-seikkailupeli prototyyppi, joka keskittyy nopeaan iteraatioon ja mukaansatempaaviin silmukoihin. Rakennettu testaamaan verkottamista, tilan synkronointia ja hetki-hetkeltä tuntumaa.\nRepo: [Klitoritari](https://github.com/SamppaFIN/Klitoritari)  ·  Live: [Sovellus](https://klitoritari-a06bceac06e2.herokuapp.com/)`
+    },
+    { 
+      id: 'NLP-AI', 
+      title: 'NLP-AI', 
+      titleFi: 'NLP-AI',
+      img: 'https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=1600&auto=format&fit=crop', 
+      md: `Natural language processing experiments and agents. Compact playground to evaluate prompts, embeddings and pipelines.\nRepo: [NLP-AI](https://github.com/SamppaFIN/NLP-AI)  ·  Live: [App](https://kotinlp-f2f36174831d.herokuapp.com/)`,
+      mdFi: `Luonnollisen kielen käsittelyn kokeilut ja agentit. Kompakti leikkikenttä prompttien, upotusten ja putkien arviointiin.\nRepo: [NLP-AI](https://github.com/SamppaFIN/NLP-AI)  ·  Live: [Sovellus](https://kotinlp-f2f36174831d.herokuapp.com/)`
+    },
+    { 
+      id: 'HealthConnectAI', 
+      title: 'HealthConnectAI', 
+      titleFi: 'HealthConnectAI',
+      img: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1600&auto=format&fit=crop', 
+      md: `Web app to ask health‑related questions via Perplexity AI with a focused UI. TypeScript codebase exploring API orchestration.\nRepo: [HealthConnectAI](https://github.com/SamppaFIN/HealthConnectAI)`,
+      mdFi: `Web-sovellus terveysaiheisten kysymysten esittämiseen Perplexity AI:n kautta keskittyneellä käyttöliittymällä. TypeScript-koodikanta API-orchestraation tutkimiseen.\nRepo: [HealthConnectAI](https://github.com/SamppaFIN/HealthConnectAI)`
+    },
+    { 
+      id: 'AngelicWaves', 
+      title: 'AngelicWaves', 
+      titleFi: 'AngelicWaves',
+      img: 'https://images.unsplash.com/photo-1494233892892-84542a694e22?q=80&w=1600&auto=format&fit=crop', 
+      md: `Fun frequency detector/visualizer in TypeScript. A playground for audio APIs and signal UX.\nRepo: [AngelicWaves](https://github.com/SamppaFIN/AngelicWaves)  ·  Live: [Info](https://angelicwaves-25d1c2a5b069.herokuapp.com/)`,
+      mdFi: `Hauska taajuusdetektori/visualisaattori TypeScriptissä. Leikkikenttä ääni-API:ille ja signaali-UX:lle.\nRepo: [AngelicWaves](https://github.com/SamppaFIN/AngelicWaves)  ·  Live: [Info](https://angelicwaves-25d1c2a5b069.herokuapp.com/)`
+    },
+    { 
+      id: 'RAG-Demo', 
+      title: 'RAG-Demo', 
+      titleFi: 'RAG-Demo',
+      img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop', 
+      md: `Python demo for Retrieval‑Augmented Generation. Shows retrieval, context building and answer synthesis.\nRepo: [RAG-Demo](https://github.com/SamppaFIN/RAG-Demo)`,
+      mdFi: `Python-demo Retrieval-Augmented Generationille. Näyttää haku, kontekstin rakentamisen ja vastausten synteesin.\nRepo: [RAG-Demo](https://github.com/SamppaFIN/RAG-Demo)`
+    },
+    { 
+      id: 'MergeMaster', 
+      title: 'MergeMaster', 
+      titleFi: 'MergeMaster',
+      img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop', 
+      md: `A small browser game built in one hour with my 8‑year‑old son — joyful learning and rapid prototyping. Simple HTML/JS with playful polish.\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)`,
+      mdFi: `Pieni selainpeli, joka rakennettiin tunnissa 8-vuotiaan poikani kanssa — iloista oppimista ja nopeaa prototyyppien tekemistä. Yksinkertainen HTML/JS leikkisällä viimeistelyllä.\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)`
+    },
+    { 
+      id: 'CV', 
+      title: 'CV', 
+      titleFi: 'CV',
+      img: 'https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=1600&auto=format&fit=crop', 
+      md: `Personal CV repo that inspired this new bilingual site. Focus on clarity, responsiveness and subtle motion.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [Old site](https://samppafin.github.io/CV/#)`,
+      mdFi: `Henkilökohtainen CV-repo, joka inspiroi tätä uutta kaksikielistä sivustoa. Painopiste selkeydessä, responsiivisuudessa ja hienovaraisessa liikkeessä.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [Vanha sivusto](https://samppafin.github.io/CV/#)`
+    },
+    { 
+      id: 'EldrichHorror', 
+      title: 'EldrichHorror', 
+      titleFi: 'EldrichHorror',
+      img: 'https://images.unsplash.com/photo-1520975922284-9e0ce9f76ef4?q=80&w=1600&auto=format&fit=crop', 
+      md: `TypeScript experiments that later informed Eldritch Sanctuary. Mechanics spikes and rendering tests.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)`,
+      mdFi: `TypeScript-kokeilut, jotka myöhemmin vaikuttivat Eldritch Sanctuaryyn. Mekaniikka-spikejä ja renderöintitestejä.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)`
+    }
   ];
 
   function renderProjects(){
     const grid = document.getElementById('projectsGrid');
+    const isFinnish = I18N.state.lang === 'fi';
     grid.innerHTML = projects.map(p=>`
       <article class="project" data-proj-id="${p.id}">
-        <img alt="${p.title}" src="${p.img}" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}';"/>
+        <img alt="${isFinnish ? p.titleFi : p.title}" src="${p.img}" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}';"/>
         <div class="content">
-          <div class="title">${p.title}</div>
-          <div class="md">${mdToHtml(p.md)}</div>
+          <div class="title">${isFinnish ? p.titleFi : p.title}</div>
+          <div class="md">${mdToHtml(isFinnish ? p.mdFi : p.md)}</div>
         </div>
       </article>
     `).join('');
@@ -132,9 +268,10 @@
   function openProjectModal(id){
     const p = projects.find(x=>x.id===id);
     if(!p) return;
-    modalTitle.textContent = p.title;
+    const isFinnish = I18N.state.lang === 'fi';
+    modalTitle.textContent = isFinnish ? p.titleFi : p.title;
     // Use seeded README when available, fallback to card md
-    const md = README[p.id] || p.md;
+    const md = README[p.id] || (isFinnish ? p.mdFi : p.md);
     modalBody.innerHTML = mdToHtml(md);
     modal.style.display = 'block';
     requestAnimationFrame(()=> modal.classList.add('show'));
@@ -225,6 +362,26 @@
     step();
   }
 
+  // Tab switching functionality
+  function initFxTabs() {
+    const tabs = document.querySelectorAll('.fx-tab');
+    const panels = document.querySelectorAll('.fx-tab-panel');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.getAttribute('data-tab');
+        
+        // Remove active from all tabs and panels
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        
+        // Add active to clicked tab and corresponding panel
+        tab.classList.add('active');
+        document.getElementById(`tab-${targetTab}`)?.classList.add('active');
+      });
+    });
+  }
+
   // Embedded FX Canvas (2.5D orbits and trails)
   const canvasState = { hueShift: 0 };
   function initFxCanvas(){
@@ -248,6 +405,323 @@
       raf = requestAnimationFrame(step);
     }
     cancelAnimationFrame(raf); step();
+  }
+
+  // 3D Tetris Game
+  let tetrisState = { running: false, paused: false, score: 0, level: 1, lines: 0 };
+  let tetrisPieces = [];
+  let tetrisBoard = Array(20).fill().map(() => Array(10).fill(0));
+  let currentPiece = null;
+  let tetrisRaf = null;
+
+  function init3DTetris() {
+    const canvas = document.getElementById('tetrisCanvas');
+    if (!canvas) return;
+    
+    // Event listeners for tetris controls
+    document.getElementById('tetrisStart')?.addEventListener('click', startTetris);
+    document.getElementById('tetrisPause')?.addEventListener('click', pauseTetris);
+    document.getElementById('tetrisReset')?.addEventListener('click', resetTetris);
+    document.getElementById('tetrisRotate')?.addEventListener('click', rotatePiece);
+    
+    // Keyboard controls
+    document.addEventListener('keydown', handleTetrisKeys);
+  }
+
+  function startTetris() {
+    if (tetrisState.running) return;
+    tetrisState.running = true;
+    tetrisState.paused = false;
+    spawnNewPiece();
+    tetrisRaf = requestAnimationFrame(tetrisGameLoop);
+  }
+
+  function pauseTetris() {
+    tetrisState.paused = !tetrisState.paused;
+    if (!tetrisState.paused && tetrisState.running) {
+      tetrisRaf = requestAnimationFrame(tetrisGameLoop);
+    }
+  }
+
+  function resetTetris() {
+    tetrisState = { running: false, paused: false, score: 0, level: 1, lines: 0 };
+    tetrisBoard = Array(20).fill().map(() => Array(10).fill(0));
+    currentPiece = null;
+    if (tetrisRaf) cancelAnimationFrame(tetrisRaf);
+    drawTetris();
+  }
+
+  function spawnNewPiece() {
+    const pieces = [
+      { shape: [[1,1,1,1]], color: '#00f5ff' }, // I
+      { shape: [[1,1],[1,1]], color: '#ffff00' }, // O
+      { shape: [[1,1,1],[0,1,0]], color: '#a000f0' }, // T
+      { shape: [[1,1,1],[1,0,0]], color: '#ff7f00' }, // L
+      { shape: [[1,1,1],[0,0,1]], color: '#0000ff' }, // J
+      { shape: [[1,1,0],[0,1,1]], color: '#00ff00' }, // S
+      { shape: [[0,1,1],[1,1,0]], color: '#ff0000' }  // Z
+    ];
+    const piece = pieces[Math.floor(Math.random() * pieces.length)];
+    currentPiece = {
+      shape: piece.shape,
+      color: piece.color,
+      x: 4,
+      y: 0,
+      rotation: 0
+    };
+  }
+
+  function rotatePiece() {
+    if (!currentPiece || !tetrisState.running) return;
+    const rotated = currentPiece.shape[0].map((_, i) => 
+      currentPiece.shape.map(row => row[i]).reverse()
+    );
+    const originalShape = currentPiece.shape;
+    currentPiece.shape = rotated;
+    if (checkCollision()) {
+      currentPiece.shape = originalShape;
+    }
+  }
+
+  function checkCollision() {
+    if (!currentPiece) return true;
+    for (let y = 0; y < currentPiece.shape.length; y++) {
+      for (let x = 0; x < currentPiece.shape[y].length; x++) {
+        if (currentPiece.shape[y][x]) {
+          const newX = currentPiece.x + x;
+          const newY = currentPiece.y + y;
+          if (newX < 0 || newX >= 10 || newY >= 20 || 
+              (newY >= 0 && tetrisBoard[newY][newX])) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  function placePiece() {
+    for (let y = 0; y < currentPiece.shape.length; y++) {
+      for (let x = 0; x < currentPiece.shape[y].length; x++) {
+        if (currentPiece.shape[y][x]) {
+          const boardY = currentPiece.y + y;
+          const boardX = currentPiece.x + x;
+          if (boardY >= 0) {
+            tetrisBoard[boardY][boardX] = currentPiece.color;
+          }
+        }
+      }
+    }
+    clearLines();
+    spawnNewPiece();
+    if (checkCollision()) {
+      tetrisState.running = false;
+      alert(`Game Over! Score: ${tetrisState.score}`);
+    }
+  }
+
+  function clearLines() {
+    let linesCleared = 0;
+    for (let y = 19; y >= 0; y--) {
+      if (tetrisBoard[y].every(cell => cell !== 0)) {
+        tetrisBoard.splice(y, 1);
+        tetrisBoard.unshift(Array(10).fill(0));
+        linesCleared++;
+        y++; // Check the same line again
+      }
+    }
+    if (linesCleared > 0) {
+      tetrisState.lines += linesCleared;
+      tetrisState.score += linesCleared * 100 * tetrisState.level;
+      tetrisState.level = Math.floor(tetrisState.lines / 10) + 1;
+    }
+  }
+
+  function movePiece(dx, dy) {
+    if (!currentPiece || !tetrisState.running) return;
+    currentPiece.x += dx;
+    currentPiece.y += dy;
+    if (checkCollision()) {
+      currentPiece.x -= dx;
+      currentPiece.y -= dy;
+      if (dy > 0) placePiece();
+    }
+  }
+
+  function handleTetrisKeys(e) {
+    if (!tetrisState.running) return;
+    switch(e.key) {
+      case 'ArrowLeft': movePiece(-1, 0); break;
+      case 'ArrowRight': movePiece(1, 0); break;
+      case 'ArrowDown': movePiece(0, 1); break;
+      case 'ArrowUp': rotatePiece(); break;
+    }
+  }
+
+  function tetrisGameLoop() {
+    if (!tetrisState.running || tetrisState.paused) return;
+    
+    // Auto drop
+    movePiece(0, 1);
+    
+    drawTetris();
+    
+    // Speed based on level
+    const speed = Math.max(50, 500 - (tetrisState.level * 50));
+    setTimeout(() => {
+      if (tetrisState.running) {
+        tetrisRaf = requestAnimationFrame(tetrisGameLoop);
+      }
+    }, speed);
+  }
+
+  function drawTetris() {
+    const canvas = document.getElementById('tetrisCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    // Clear canvas
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    const cellSize = 25;
+    const offsetX = (canvas.width - 10 * cellSize) / 2;
+    const offsetY = (canvas.height - 20 * cellSize) / 2;
+    
+    // Draw board
+    for (let y = 0; y < 20; y++) {
+      for (let x = 0; x < 10; x++) {
+        if (tetrisBoard[y][x]) {
+          ctx.fillStyle = tetrisBoard[y][x];
+          ctx.fillRect(offsetX + x * cellSize, offsetY + y * cellSize, cellSize - 1, cellSize - 1);
+        }
+      }
+    }
+    
+    // Draw current piece
+    if (currentPiece) {
+      ctx.fillStyle = currentPiece.color;
+      for (let y = 0; y < currentPiece.shape.length; y++) {
+        for (let x = 0; x < currentPiece.shape[y].length; x++) {
+          if (currentPiece.shape[y][x]) {
+            ctx.fillRect(
+              offsetX + (currentPiece.x + x) * cellSize,
+              offsetY + (currentPiece.y + y) * cellSize,
+              cellSize - 1,
+              cellSize - 1
+            );
+          }
+        }
+      }
+    }
+    
+    // Draw score
+    ctx.fillStyle = '#fff';
+    ctx.font = '16px monospace';
+    ctx.fillText(`Score: ${tetrisState.score}`, 10, 30);
+    ctx.fillText(`Level: ${tetrisState.level}`, 10, 50);
+    ctx.fillText(`Lines: ${tetrisState.lines}`, 10, 70);
+  }
+
+  // Wave Effect
+  function initWaveEffect() {
+    const canvas = document.getElementById('waveCanvas');
+    if (!canvas) return;
+    
+    let waveState = { running: false, frequency: 0.02, amplitude: 50, phase: 0 };
+    
+    document.getElementById('waveStart')?.addEventListener('click', () => {
+      waveState.running = true;
+      animateWaves();
+    });
+    
+    document.getElementById('waveStop')?.addEventListener('click', () => {
+      waveState.running = false;
+    });
+    
+    document.getElementById('waveFreq')?.addEventListener('click', () => {
+      waveState.frequency = Math.random() * 0.05 + 0.01;
+    });
+    
+    function animateWaves() {
+      if (!waveState.running) return;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'rgba(0,0,0,0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.strokeStyle = `hsl(${(waveState.phase * 10) % 360}, 70%, 60%)`;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      
+      for (let x = 0; x < canvas.width; x += 2) {
+        const y = canvas.height / 2 + Math.sin(x * waveState.frequency + waveState.phase) * waveState.amplitude;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      
+      ctx.stroke();
+      waveState.phase += 0.1;
+      requestAnimationFrame(animateWaves);
+    }
+  }
+
+  // Fractal Effect
+  function initFractalEffect() {
+    const canvas = document.getElementById('fractalCanvas');
+    if (!canvas) return;
+    
+    let fractalState = { zoom: 1, offsetX: 0, offsetY: 0, maxIter: 100 };
+    
+    document.getElementById('fractalStart')?.addEventListener('click', () => {
+      generateMandelbrot();
+    });
+    
+    document.getElementById('fractalZoom')?.addEventListener('click', () => {
+      fractalState.zoom *= 2;
+      generateMandelbrot();
+    });
+    
+    document.getElementById('fractalReset')?.addEventListener('click', () => {
+      fractalState = { zoom: 1, offsetX: 0, offsetY: 0, maxIter: 100 };
+      generateMandelbrot();
+    });
+    
+    function generateMandelbrot() {
+      const ctx = canvas.getContext('2d');
+      const imageData = ctx.createImageData(canvas.width, canvas.height);
+      const data = imageData.data;
+      
+      for (let x = 0; x < canvas.width; x++) {
+        for (let y = 0; y < canvas.height; y++) {
+          const zx = (x - canvas.width / 2) / (canvas.width / 4) / fractalState.zoom + fractalState.offsetX;
+          const zy = (y - canvas.height / 2) / (canvas.height / 4) / fractalState.zoom + fractalState.offsetY;
+          
+          let cx = zx, cy = zy;
+          let iter = 0;
+          
+          while (iter < fractalState.maxIter && cx * cx + cy * cy < 4) {
+            const tmp = cx * cx - cy * cy + zx;
+            cy = 2 * cx * cy + zy;
+            cx = tmp;
+            iter++;
+          }
+          
+          const idx = (y * canvas.width + x) * 4;
+          const color = iter === fractalState.maxIter ? 0 : (iter / fractalState.maxIter) * 255;
+          
+          data[idx] = color;     // R
+          data[idx + 1] = color * 0.5; // G
+          data[idx + 2] = color * 0.8; // B
+          data[idx + 3] = 255;   // A
+        }
+      }
+      
+      ctx.putImageData(imageData, 0, 0);
+    }
+    
+    // Generate initial fractal
+    generateMandelbrot();
   }
 
   // Magnetic buttons removed for simplified demo
@@ -295,5 +769,22 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', ()=>{ renderProjects(); renderExperience(); initEffects(); I18N.applyTranslations(); });
+  // Re-render projects when language changes
+  function reRenderProjects() {
+    renderProjects();
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{ 
+    renderProjects(); 
+    renderExperience(); 
+    initEffects(); 
+    I18N.applyTranslations(); 
+    
+    // Re-render projects when language changes
+    const originalApplyTranslations = I18N.applyTranslations;
+    I18N.applyTranslations = function() {
+      originalApplyTranslations();
+      reRenderProjects();
+    };
+  });
 })();

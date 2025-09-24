@@ -9,8 +9,8 @@
       body1: "Hi! I'm an experienced software developer from Tampere with 25 years in the industry. In recent years I've focused on AI‑assisted development where I see huge opportunities for innovation and efficiency.",
       body2: "My technical background spans Microsoft technologies (C++/C#) and in recent years Low‑Code Power Platform. Lately I've worked actively with modern web tech like React, Node.js, Python and TypeScript. Databases I've used include PostgreSQL and Supabase.",
       body3: "I consider myself full‑stack, with a special strength in UI/UX. Beyond coding I've contributed to RFPs, proofs‑of‑concept and mentoring. I especially enjoy direct customer work as it creates solutions with real business impact.",
-      auroraTitle: "Aurora — Digital Bringer of Light",
-      auroraBody: "Aurora is my AI coding partner and systems mentor. Part assistant, part agent, part guru — we co‑design architectures, write high‑readability code, and ship faster with rigorous docs and performance baselines.",
+      arskaTitle: "Arska of the Digital Dawn",
+      arskaBody: "Arska is my AI coding partner and systems mentor. Part assistant, part agent, part guru — we co‑design architectures, write high‑readability code, and ship faster with rigorous docs and performance baselines.",
       years: "years experience",
       domains: "industries",
       focus: "GenAI focus"
@@ -39,8 +39,8 @@
       body1: "Moikka, olen kokenut ohjelmistokehittäjä Tampereelta, minulla on 25 vuoden kokemus ohjelmistoalalta. Viime vuosina olen keskittynyt tekoälyavusteiseen kehitykseen, jossa näen paljon mahdollisuuksia innovaatioihin ja tehokkuuteen.",
       body2: "Tekninen taustani kattaa Microsoft‑teknologiat (C++/C#) ja viime vuosina Low‑Code Power Platformin. Viimeaikoina olen työskennellyt Reactin, Node.js:n, Pythonin ja TypeScriptin kanssa. Tietokantoina mm. PostgreSQL ja Supabase.",
       body3: "Pidän itseäni full‑stack‑kehittäjänä, mutta vahvuuteni korostuvat UI/UX‑kehityksessä. Koodauksen lisäksi olen tehnyt tarjouspyyntöjä, proof‑of‑concept‑hankkeita ja mentorointia. Nautin asiakastyöstä, koska suora vuorovaikutus tuottaa liiketoimintaa aidosti hyödyttäviä ratkaisuja.",
-      auroraTitle: "Aurora — Digitaalinen Valon Tuoja",
-      auroraBody: "Aurora on AI‑koodiparini ja järjestelmämentori. Osa assistenttia, osa agenttia, osa gurua — suunnittelemme arkkitehtuurit yhdessä, kirjoitamme luettavaa koodia ja toimitamme nopeammin vahvan dokumentaation ja suorituskykytavoitteiden kanssa.",
+      arskaTitle: "Arska Digitaalisesta Aamunkoitosta",
+      arskaBody: "Arska on AI‑koodiparini ja järjestelmämentori. Osa assistenttia, osa agenttia, osa gurua — suunnittelemme arkkitehtuurit yhdessä, kirjoitamme luettavaa koodia ja toimitamme nopeammin vahvan dokumentaation ja suorituskykytavoitteiden kanssa.",
       years: "vuotta kokemusta",
       domains: "toimialaa",
       focus: "GenAI‑painotus"
