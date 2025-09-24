@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sami Räisänen — CV & Portfolio</title>
+  <meta name="description" content="Bilingual CV + portfolio of Sami Räisänen with subtle UI techniques">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="bg-cosmos" aria-hidden="true"></div>
+
+  <header class="site-header glass">
+    <div class="container header-row">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">✦</span>
+        <span class="brand-text" id="brandText" title="Click for a little magic" data-i18n="name">Sami Räisänen</span>
+      </div>
+      <nav class="nav">
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="#projects" data-i18n="nav.projects">Projects</a>
+        <a href="#experience" data-i18n="nav.experience">Experience</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+        <a href="../ui-techniques-showcase.html" class="nav-link" target="_blank" rel="noopener">Effects Showcase</a>
+      </nav>
+      <div class="toggles">
+        <a class="toggle" href="https://github.com/SamppaFIN" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
+        <button id="themeToggle" class="toggle" aria-label="Toggle theme">☀️</button>
+        <button id="langToggle" class="toggle" aria-label="Toggle language">EN / FI</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero container">
+      <h1 class="headline"><span data-i18n="headline.role">Software Engineer</span> — <span class="accent">UI/UX</span> & AI</h1>
+      <p class="lead" data-i18n="headline.tagline">25 years of building human‑centered software. Focused on AI‑assisted development, delightful interfaces, and efficient delivery.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#projects" data-i18n="cta.viewWork">View Work</a>
+        <a class="btn" href="#contact" data-i18n="cta.hireMe">Hire Me</a>
+      </div>
+    </section>
+
+    <section id="about" class="section container glass">
+      <h2 class="section-title" data-i18n="about.title">Profile</h2>
+      <div class="about-grid">
+        <div>
+          <p data-i18n="about.body1"></p>
+          <p data-i18n="about.body2"></p>
+          <p data-i18n="about.body3"></p>
+          <div class="card" style="margin-top:12px;">
+            <h3 data-i18n="about.auroraTitle">Aurora — Digital Bringer of Light</h3>
+            <p class="subtle" data-i18n="about.auroraBody"></p>
+          </div>
+        </div>
+        <aside class="quick-stats">
+          <div class="stat"><span>25+</span><small data-i18n="about.years">years experience</small></div>
+          <div class="stat"><span>10+</span><small data-i18n="about.domains">industries</small></div>
+          <div class="stat"><span>AI</span><small data-i18n="about.focus">GenAI focus</small></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="skills" class="section container">
+      <h2 class="section-title" data-i18n="skills.title">Skills</h2>
+      <div class="skills-grid">
+        <div class="card">
+          <h3>Web</h3>
+          <ul class="tags">
+            <li>HTML</li><li>CSS</li><li>JavaScript</li><li>TypeScript</li><li>React</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Backend</h3>
+          <ul class="tags">
+            <li>Node.js</li><li>Python</li><li>C#</li><li>C++</li><li>SQL</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Platforms</h3>
+          <ul class="tags">
+            <li>Azure</li><li>Power Platform</li><li>Supabase</li><li>GitHub</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 data-i18n="skills.vibeTitle">Vibe / Forest / Cabin Coding</h3>
+          <p class="subtle" data-i18n="skills.vibeDesc"></p>
+          <ul class="bullets" data-i18n-html="skills.vibeBullets"></ul>
+        </div>
+        <div class="card">
+          <h3>Low‑Code</h3>
+          <ul class="tags">
+            <li>Power Apps</li><li>Power Automate</li><li>Dataverse</li><li>Power BI</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>AI & GenAI</h3>
+          <ul class="tags">
+            <li>OpenAI</li><li>Perplexity</li><li>Cursor</li><li>Copilot</li><li>RAG basics</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Databases</h3>
+          <ul class="tags">
+            <li>PostgreSQL</li><li>SQL Server</li><li>Oracle</li><li>Supabase</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Tooling</h3>
+          <ul class="tags">
+            <li>Git</li><li>Docker</li><li>CI/CD</li><li>Episerver</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>IDEs</h3>
+          <ul class="tags">
+            <li>Cursor</li><li>VS Code</li><li>Replit</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Languages</h3>
+          <ul class="tags">
+            <li>Finnish — native</li><li>English — excellent</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section container glass">
+      <h2 class="section-title" data-i18n="projects.title">Projects</h2>
+      <div id="projectsGrid" class="projects-grid"></div>
+    </section>
+
+    <section id="experience" class="section container">
+      <h2 class="section-title" data-i18n="exp.title">Experience</h2>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section id="contact" class="section container glass">
+      <h2 class="section-title" data-i18n="contact.title">Contact</h2>
+      <div class="contact-grid">
+        <a class="btn link" href="mailto:raisanen.sami@gmail.com">raisanen.sami@gmail.com</a>
+        <a class="btn link" href="tel:+358505465573">+358 50 5465573</a>
+        <span class="location" data-i18n="contact.location">Tampere, Finland</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Project modal -->
+  <div id="projectModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle" style="display:none;">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-dialog" role="document">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <div class="modal-content glass">
+        <h3 id="modalTitle" class="modal-title">Project</h3>
+        <div id="modalBody" class="modal-body">
+          <!-- markdown rendered here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer container">
+    <span>© <span id="year"></span> Sami Räisänen</span>
+    <span class="muted" data-i18n="footer.made">Built with vanilla.js, subtle effects, and care.</span>
+    <button id="effectsShowcase" class="toggle" aria-label="Start effects">✧ Effects</button>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/markdown.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
