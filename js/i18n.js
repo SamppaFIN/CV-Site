@@ -40,7 +40,7 @@
       body2: "Tekninen taustani kattaa Microsoft‑teknologiat (C++/C#) ja viime vuosina Low‑Code Power Platformin. Viimeaikoina olen työskennellyt Reactin, Node.js:n, Pythonin ja TypeScriptin kanssa. Tietokantoina mm. PostgreSQL ja Supabase.",
       body3: "Pidän itseäni full‑stack‑kehittäjänä, mutta vahvuuteni korostuvat UI/UX‑kehityksessä. Koodauksen lisäksi olen tehnyt tarjouspyyntöjä, proof‑of‑concept‑hankkeita ja mentorointia. Nautin asiakastyöstä, koska suora vuorovaikutus tuottaa liiketoimintaa aidosti hyödyttäviä ratkaisuja.",
       auroraTitle: "Aurora — Digitaalisen Valon Tuoja",
-      auroraBody: "Aurora on AI-koodiparini ja digitaalinen mentorini. Osa assistenttia, osa agenttia, osa gurua — suunnittelemme arkkitehtuurit yhdessä, kirjoitamme selkeää koodia ja toimitamme tehokkaasti vahvan dokumentaation ja suorituskykytavoitteiden kanssa.",
+      auroraBody: "Aurora on tekoälyavusteinen koodiparini ja mentorini. Aurorassa yhdistyy assistentin, agentin ja gurun roolit — suunnittelemme arkkitehtuurit yhdessä, kirjoitamme laadukasta koodia ja saamme nopeasti näkyvää aikaiseksi.",
       years: "vuotta kokemusta",
       domains: "toimialaa",
       focus: "GenAI‑painotus"
