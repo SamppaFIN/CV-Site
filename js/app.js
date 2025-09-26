@@ -182,7 +182,7 @@
     { 
       id: 'NLP-AI', 
       title: 'NLP-AI', 
-      titleFi: 'NLP-AI',
+      titleFi: 'Luonnollisen Kielen Käsittely',
       img: 'https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=1600&auto=format&fit=crop', 
       md: `Natural language processing experiments and agents. Compact playground to evaluate prompts, embeddings and pipelines.\nRepo: [NLP-AI](https://github.com/SamppaFIN/NLP-AI)  ·  Live: [App](https://kotinlp-f2f36174831d.herokuapp.com/)`,
       mdFi: `Luonnollisen kielen käsittelyn kokeilut ja agentit. Kompakti leikkikenttä prompttien, upotusten ja putkien arviointiin.\nRepo: [NLP-AI](https://github.com/SamppaFIN/NLP-AI)  ·  Live: [Sovellus](https://kotinlp-f2f36174831d.herokuapp.com/)`
@@ -190,7 +190,7 @@
     { 
       id: 'HealthConnectAI', 
       title: 'HealthConnectAI', 
-      titleFi: 'HealthConnectAI',
+      titleFi: 'Terveys-AI',
       img: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1600&auto=format&fit=crop', 
       md: `Web app to ask health‑related questions via Perplexity AI with a focused UI. TypeScript codebase exploring API orchestration.\nRepo: [HealthConnectAI](https://github.com/SamppaFIN/HealthConnectAI)`,
       mdFi: `Web-sovellus terveysaiheisten kysymysten esittämiseen Perplexity AI:n kautta keskittyneellä käyttöliittymällä. TypeScript-koodikanta API-orchestraation tutkimiseen.\nRepo: [HealthConnectAI](https://github.com/SamppaFIN/HealthConnectAI)`
@@ -198,7 +198,7 @@
     { 
       id: 'AngelicWaves', 
       title: 'AngelicWaves', 
-      titleFi: 'AngelicWaves',
+      titleFi: 'Enkeliaallot',
       img: 'https://images.unsplash.com/photo-1494233892892-84542a694e22?q=80&w=1600&auto=format&fit=crop', 
       md: `Fun frequency detector/visualizer in TypeScript. A playground for audio APIs and signal UX.\nRepo: [AngelicWaves](https://github.com/SamppaFIN/AngelicWaves)  ·  Live: [Info](https://angelicwaves-25d1c2a5b069.herokuapp.com/)`,
       mdFi: `Hauska taajuusdetektori/visualisaattori TypeScriptissä. Leikkikenttä ääni-API:ille ja signaali-UX:lle.\nRepo: [AngelicWaves](https://github.com/SamppaFIN/AngelicWaves)  ·  Live: [Info](https://angelicwaves-25d1c2a5b069.herokuapp.com/)`
@@ -214,7 +214,7 @@
     { 
       id: 'MergeMaster', 
       title: 'MergeMaster', 
-      titleFi: 'MergeMaster',
+      titleFi: 'Yhdistä-Mestari',
       img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop', 
       md: `A small browser game built in one hour with my 8‑year‑old son — joyful learning and rapid prototyping. Simple HTML/JS with playful polish.\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)`,
       mdFi: `Pieni selainpeli, joka rakennettiin tunnissa 8-vuotiaan poikani kanssa — iloista oppimista ja nopeaa prototyyppien tekemistä. Yksinkertainen HTML/JS leikkisällä viimeistelyllä.\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)`
@@ -222,7 +222,7 @@
     { 
       id: 'CV', 
       title: 'CV', 
-      titleFi: 'CV',
+      titleFi: 'Ansioluettelo',
       img: 'https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=1600&auto=format&fit=crop', 
       md: `Personal CV repo that inspired this new bilingual site. Focus on clarity, responsiveness and subtle motion.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [Old site](https://samppafin.github.io/CV/#)`,
       mdFi: `Henkilökohtainen CV-repo, joka inspiroi tätä uutta kaksikielistä sivustoa. Painopiste selkeydessä, responsiivisuudessa ja hienovaraisessa liikkeessä.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [Vanha sivusto](https://samppafin.github.io/CV/#)`
@@ -230,7 +230,7 @@
     { 
       id: 'EldrichHorror', 
       title: 'EldrichHorror', 
-      titleFi: 'EldrichHorror',
+      titleFi: 'Vanha Kauhu',
       img: 'https://images.unsplash.com/photo-1520975922284-9e0ce9f76ef4?q=80&w=1600&auto=format&fit=crop', 
       md: `TypeScript experiments that later informed Eldritch Sanctuary. Mechanics spikes and rendering tests.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)`,
       mdFi: `TypeScript-kokeilut, jotka myöhemmin vaikuttivat Eldritch Sanctuaryyn. Mekaniikka-spikejä ja renderöintitestejä.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)`
