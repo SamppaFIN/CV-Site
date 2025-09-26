@@ -39,6 +39,7 @@ body {
   background:
     radial-gradient(600px 400px at 10% 80%, rgba(74,158,255,.08), transparent 60%),
     radial-gradient(600px 400px at 90% 10%, rgba(0,255,136,.08), transparent 60%);
+  opacity: 0.6; /* Reduce opacity to let Sacred Geometry show through */
 }
 
 /* Glass */

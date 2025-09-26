@@ -1,0 +1,406 @@
+/* Sacred Geometry Background System */
+/* Inspired by cosmic wisdom and ancient geometric principles */
+
+/* Base Sacred Geometry Container */
+.sacred-geometry-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2; /* Behind the existing bg-cosmos */
+  pointer-events: none;
+  overflow: hidden;
+  background: 
+    radial-gradient(800px 600px at 15% 85%, rgba(147, 51, 234, 0.12), transparent 70%),
+    radial-gradient(800px 600px at 85% 15%, rgba(59, 130, 246, 0.10), transparent 70%),
+    radial-gradient(600px 400px at 50% 50%, rgba(236, 72, 153, 0.08), transparent 60%);
+}
+
+.sacred-geometry-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Hexagonal Grid Background */
+.hexagon-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(147, 51, 234, 0.15) 1px, transparent 1px),
+    radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.12) 1px, transparent 1px),
+    radial-gradient(circle at 60% 60%, rgba(236, 72, 153, 0.10) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.08) 1px, transparent 1px);
+  background-size: 120px 120px, 100px 100px, 140px 140px, 90px 90px;
+  background-position: 0 0, 30px 30px, 60px 60px, 90px 90px;
+  animation: hexagon-drift 30s ease-in-out infinite;
+}
+
+/* Glowing Hexagons */
+.sacred-hexagon {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: rgba(236, 72, 153, 0.2);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  animation: hexagon-pulse 12s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.3));
+}
+
+.sacred-hexagon.large {
+  width: 80px;
+  height: 80px;
+  background: rgba(147, 51, 234, 0.25);
+  filter: drop-shadow(0 0 12px rgba(147, 51, 234, 0.4));
+}
+
+.sacred-hexagon.medium {
+  width: 60px;
+  height: 60px;
+  background: rgba(59, 130, 246, 0.2);
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
+}
+
+.sacred-hexagon.small {
+  width: 40px;
+  height: 40px;
+  background: rgba(251, 191, 36, 0.15);
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.25));
+}
+
+/* Sacred Circles */
+.sacred-circle {
+  position: absolute;
+  border: 2px solid rgba(147, 51, 234, 0.4);
+  border-radius: 50%;
+  animation: sacred-float 15s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(147, 51, 234, 0.3));
+}
+
+.sacred-circle.large {
+  width: 120px;
+  height: 120px;
+  border-color: rgba(59, 130, 246, 0.5);
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.4));
+}
+
+.sacred-circle.medium {
+  width: 80px;
+  height: 80px;
+  border-color: rgba(236, 72, 153, 0.4);
+  filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.3));
+}
+
+.sacred-circle.small {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(251, 191, 36, 0.3);
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.25));
+}
+
+/* Sacred Triangles */
+.sacred-triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 52px solid rgba(59, 130, 246, 0.3);
+  animation: sacred-rotate 20s linear infinite;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.3));
+}
+
+.sacred-triangle.upward {
+  border-bottom: 52px solid rgba(59, 130, 246, 0.3);
+  border-top: none;
+}
+
+.sacred-triangle.downward {
+  border-top: 52px solid rgba(59, 130, 246, 0.3);
+  border-bottom: none;
+}
+
+/* Floating Sigils */
+.sacred-sigil {
+  position: absolute;
+  font-size: 28px;
+  color: rgba(147, 51, 234, 0.5);
+  animation: sigil-float 18s ease-in-out infinite;
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px rgba(147, 51, 234, 0.4));
+}
+
+/* Sacred Pentagrams */
+.sacred-pentagram {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: rgba(251, 191, 36, 0.3);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: pentagram-glow 10s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
+}
+
+/* Sacred Spirals */
+.sacred-spiral {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 3px solid rgba(34, 197, 94, 0.4);
+  border-radius: 50%;
+  animation: spiral-rotate 25s linear infinite;
+  filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.3));
+}
+
+.sacred-spiral::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(34, 197, 94, 0.3);
+  border-radius: 50%;
+  animation: spiral-rotate 20s linear infinite reverse;
+}
+
+.sacred-spiral::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 50%;
+  animation: spiral-rotate 15s linear infinite;
+}
+
+/* Particle System */
+.cosmic-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: particle-float 20s linear infinite;
+}
+
+.particle.large {
+  width: 3px;
+  height: 3px;
+  background: rgba(147, 51, 234, 0.7);
+}
+
+.particle.medium {
+  width: 2px;
+  height: 2px;
+  background: rgba(59, 130, 246, 0.6);
+}
+
+.particle.small {
+  width: 1px;
+  height: 1px;
+  background: rgba(236, 72, 153, 0.5);
+}
+
+/* Animation Keyframes */
+@keyframes hexagon-drift {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translateX(10px) translateY(-5px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-5px) translateY(10px);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateX(5px) translateY(-8px);
+    opacity: 1;
+  }
+}
+
+@keyframes hexagon-pulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 0.4;
+  }
+}
+
+@keyframes sacred-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes sacred-rotate {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+@keyframes sigil-float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translateY(-15px) translateX(10px) rotate(90deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-5px) rotate(180deg);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translateY(-20px) translateX(5px) rotate(270deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes pentagram-glow {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.3;
+    filter: brightness(1) drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
+  }
+  50% {
+    transform: scale(1.1) rotate(180deg);
+    opacity: 0.6;
+    filter: brightness(1.5) drop-shadow(0 0 12px rgba(251, 191, 36, 0.6));
+  }
+}
+
+@keyframes spiral-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(100vh) translateX(0px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) translateX(50px);
+    opacity: 0;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .sacred-geometry-container * {
+    animation: none !important;
+    opacity: 0.3 !important;
+  }
+  
+  .hexagon-grid {
+    animation: none !important;
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .sacred-geometry-container * {
+    filter: contrast(200%) brightness(1.2) !important;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .sacred-hexagon.large {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .sacred-hexagon.medium {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .sacred-hexagon.small {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .sacred-circle.large {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .sacred-circle.medium {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .sacred-circle.small {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .sacred-sigil {
+    font-size: 20px;
+  }
+  
+  .hexagon-grid {
+    background-size: 80px 80px, 70px 70px, 90px 90px, 60px 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sacred-geometry-container {
+    opacity: 0.7; /* Reduce intensity on very small screens */
+  }
+  
+  .hexagon-grid {
+    background-size: 60px 60px, 50px 50px, 70px 70px, 40px 40px;
+  }
+}
