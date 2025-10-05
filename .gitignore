@@ -1,15 +1,23 @@
-# Node/editor artifacts
+# Dependencies
+node_modules/
+
+# OS Files
 .DS_Store
 Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
 *.log
 
-# Local builds
-/dist
-/build
-
-# Ignore large docs and working notes
-/docs/**
-!docs/AURORA_LOG_.md
-
-# Env
+# Environment
 .env
+.env.local
+
+# Build outputs (if added later)
+dist/
+build/

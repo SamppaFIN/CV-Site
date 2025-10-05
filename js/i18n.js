@@ -82,6 +82,10 @@
       state.lang = state.lang === 'en' ? 'fi' : 'en';
       applyTranslations();
       btn.textContent = state.lang.toUpperCase() === 'EN' ? 'EN / FI' : 'FI / EN';
+      // Trigger project re-render for dynamic content
+      if (window.renderProjects) {
+        window.renderProjects();
+      }
     });
   }
 

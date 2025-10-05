@@ -1,11 +1,24 @@
 (function(){
   // Theme toggle
-  function applyTheme(theme){ 
+  function applyTheme(theme, animated = false){ 
+    if (animated) {
+      // Add smooth transition class
+      document.documentElement.classList.add('theme-transitioning');
+      setTimeout(() => {
+        document.documentElement.classList.remove('theme-transitioning');
+      }, 300);
+    }
     document.documentElement.setAttribute('data-theme', theme); 
     localStorage.setItem('theme', theme); 
     const themeBtn = document.getElementById('themeToggle');
     if(themeBtn) themeBtn.textContent = theme==='light'?'☀️':'🌙'; 
   }
+  
+  function toggleTheme(animated = false) {
+    const cur = document.documentElement.getAttribute('data-theme'); 
+    applyTheme(cur==='light'?'dark':'light', animated);
+  }
+  
   document.addEventListener('DOMContentLoaded', ()=>{
     applyTheme(localStorage.getItem('theme')||'light');
     const themeBtn = document.getElementById('themeToggle');
@@ -13,17 +26,46 @@
       themeBtn.addEventListener('click', (e)=>{ 
         e.preventDefault();
         e.stopPropagation();
-        const cur = document.documentElement.getAttribute('data-theme'); 
-        applyTheme(cur==='light'?'dark':'light'); 
+        toggleTheme(true);
       });
-      // Also add touch events for mobile
-      themeBtn.addEventListener('touchend', (e)=>{ 
+      // Fix mobile theme toggle - use touchstart instead of touchend
+      themeBtn.addEventListener('touchstart', (e)=>{ 
         e.preventDefault();
         e.stopPropagation();
-        const cur = document.documentElement.getAttribute('data-theme'); 
-        applyTheme(cur==='light'?'dark':'light'); 
-      });
+        toggleTheme(true);
+      }, { passive: false });
     }
+    
+    // Aurora card theme toggle - force light theme with animation
+    const auroraCard = document.getElementById('auroraCard');
+    if(auroraCard) {
+      const auroraToggle = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Always switch to light theme when clicking Aurora card
+        const cur = document.documentElement.getAttribute('data-theme');
+        if (cur === 'dark') {
+          applyTheme('light', true);
+          // Add subtle flash effect
+          auroraCard.style.transition = 'all 0.1s ease';
+          auroraCard.style.transform = 'scale(1.05)';
+          auroraCard.style.boxShadow = '0 0 30px rgba(74,158,255,0.5)';
+          setTimeout(() => {
+            auroraCard.style.transform = '';
+            auroraCard.style.boxShadow = '';
+            setTimeout(() => {
+              auroraCard.style.transition = '';
+            }, 300);
+          }, 100);
+        } else {
+          // If already light, toggle to dark
+          applyTheme('dark', true);
+        }
+      };
+      auroraCard.addEventListener('click', auroraToggle);
+      auroraCard.addEventListener('touchstart', auroraToggle, { passive: false });
+    }
+    
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Easter-egg: brand name sparks
@@ -185,73 +227,112 @@
   // Public projects only
   const projects = [
     { 
+      id: 'LEGALFLY', 
+      title: 'LEGALFLY - Legal Document Analysis Tool', 
+      titleFi: 'LEGALFLY - Juridinen Dokumenttianalyysi',
+      img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1600&auto=format&fit=crop', 
+      tech: ['AI/ML', 'OCR', 'NLP', 'Node.js', 'React', 'PostgreSQL'],
+      md: `AI-powered legal document analysis with OCR, metadata extraction, and case management.\nRepo: [LEGALFLY](https://github.com/infinite-aurora/legal-insight-tool)`,
+      mdFi: `AI-pohjainen juridinen asiakirja-analyysi OCR:llä, metatietojen poimimisella ja asianhallinnalla.\nRepo: [LEGALFLY](https://github.com/infinite-aurora/legal-insight-tool)`
+    },
+    { 
+      id: 'WebShop', 
+      title: 'WebShop - Modern E-Commerce Platform', 
+      titleFi: 'WebShop - Moderni Verkkokauppa',
+      img: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1600&auto=format&fit=crop', 
+      tech: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Supabase', 'JWT'],
+      md: `Full-stack e-commerce with dual themes, shopping cart, and secure authentication.\nRepo: [WebShop](https://github.com/SamppaFIN/WebShop)  ·  Demo: demo@webshop.com / demo123`,
+      mdFi: `Full-stack verkkokauppa kaksoisteemoilla, ostoskorilla ja turvallisella autentikoinnilla.\nRepo: [WebShop](https://github.com/SamppaFIN/WebShop)  ·  Demo: demo@webshop.com / demo123`
+    },
+    { 
       id: 'Klitoritari', 
-      title: 'Klitoritari', 
-      titleFi: 'Klitoritari',
+      title: 'Klitoritari - Multiplayer Adventure Game', 
+      titleFi: 'Klitoritari - Moninpeliseikkailu',
       img: 'https://images.unsplash.com/photo-1484821582734-6c6c9f99a672?q=80&w=1600&auto=format&fit=crop', 
-      md: `Multiplayer online adventure game prototype focused on fast iteration and immersive loops. Built to test networking, state sync and moment‑to‑moment feel.\nRepo: [Klitoritari](https://github.com/SamppaFIN/Klitoritari)  ·  Live: [App](https://klitoritari-a06bceac06e2.herokuapp.com/)`,
-      mdFi: `Moninpelimäinen online-seikkailupeli prototyyppi, joka keskittyy nopeaan iteraatioon ja mukaansatempaaviin silmukoihin. Rakennettu testaamaan verkottamista, tilan synkronointia ja hetki-hetkeltä tuntumaa.\nRepo: [Klitoritari](https://github.com/SamppaFIN/Klitoritari)  ·  Live: [Sovellus](https://klitoritari-a06bceac06e2.herokuapp.com/)`
+      tech: ['WebSocket', 'Multiplayer', 'JavaScript', 'Node.js'],
+      md: `Real-time multiplayer adventure with live player sync and state management.\nRepo: [Klitoritari](https://github.com/SamppaFIN/Klitoritari)  ·  Live: [Play Game](https://klitoritari-a06bceac06e2.herokuapp.com/)`,
+      mdFi: `Reaaliaikainen moninpeliseikkailu live-synkronoinnilla ja tilanteen hallinnalla.\nRepo: [Klitoritari](https://github.com/SamppaFIN/Klitoritari)  ·  Live: [Pelaa](https://klitoritari-a06bceac06e2.herokuapp.com/)`
     },
     { 
       id: 'NLP-AI', 
-      title: 'NLP-AI', 
-      titleFi: 'Luonnollisen Kielen Käsittely',
+      title: 'NLP-AI - Natural Language Processing Lab', 
+      titleFi: 'NLP-AI - Luonnollisen Kielen Prosessointi',
       img: 'https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=1600&auto=format&fit=crop', 
-      md: `Natural language processing experiments and agents. Compact playground to evaluate prompts, embeddings and pipelines.\nRepo: [NLP-AI](https://github.com/SamppaFIN/NLP-AI)  ·  Live: [App](https://kotinlp-f2f36174831d.herokuapp.com/)`,
-      mdFi: `Luonnollisen kielen käsittelyn kokeilut ja agentit. Kompakti leikkikenttä prompttien, upotusten ja putkien arviointiin.\nRepo: [NLP-AI](https://github.com/SamppaFIN/NLP-AI)  ·  Live: [Sovellus](https://kotinlp-f2f36174831d.herokuapp.com/)`
+      tech: ['Python', 'NLP', 'AI', 'Embeddings'],
+      md: `NLP experiments with prompt engineering, text analysis, and language models.\nRepo: [NLP-AI](https://github.com/SamppaFIN/NLP-AI)  ·  Live: [Try Demo](https://kotinlp-f2f36174831d.herokuapp.com/)`,
+      mdFi: `NLP-kokeilut prompt-insinööritaidolla, tekstianalyysillä ja kielimalleilla.\nRepo: [NLP-AI](https://github.com/SamppaFIN/NLP-AI)  ·  Live: [Kokeile](https://kotinlp-f2f36174831d.herokuapp.com/)`
     },
     { 
       id: 'HealthConnectAI', 
-      title: 'HealthConnectAI', 
-      titleFi: 'Terveys-AI',
+      title: 'HealthConnectAI - AI Health Assistant', 
+      titleFi: 'HealthConnectAI - AI Terveys-assistentti',
       img: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1600&auto=format&fit=crop', 
-      md: `Web app to ask health‑related questions via Perplexity AI with a focused UI. TypeScript codebase exploring API orchestration.\nRepo: [HealthConnectAI](https://github.com/SamppaFIN/HealthConnectAI)`,
-      mdFi: `Web-sovellus terveysaiheisten kysymysten esittämiseen Perplexity AI:n kautta keskittyneellä käyttöliittymällä. TypeScript-koodikanta API-orchestraation tutkimiseen.\nRepo: [HealthConnectAI](https://github.com/SamppaFIN/HealthConnectAI)`
+      tech: ['TypeScript', 'React', 'Perplexity AI', 'API'],
+      md: `Health Q&A platform powered by Perplexity AI with clean TypeScript implementation.\nRepo: [HealthConnectAI](https://github.com/SamppaFIN/HealthConnectAI)`,
+      mdFi: `Terveyskysymys-alusta Perplexity AI:lla ja puhtaalla TypeScript-toteutuksella.\nRepo: [HealthConnectAI](https://github.com/SamppaFIN/HealthConnectAI)`
     },
     { 
       id: 'AngelicWaves', 
-      title: 'AngelicWaves', 
-      titleFi: 'Enkeliaallot',
+      title: 'AngelicWaves - Audio Frequency Analyzer', 
+      titleFi: 'AngelicWaves - Äänitaajuusanalysaattori',
       img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1600&auto=format&fit=crop', 
-      md: `Fun frequency detector/visualizer in TypeScript. A playground for audio APIs and signal UX.\nRepo: [AngelicWaves](https://github.com/SamppaFIN/AngelicWaves)  ·  Live: [Info](https://angelicwaves-25d1c2a5b069.herokuapp.com/)`,
-      mdFi: `Hauska taajuusdetektori/visualisaattori TypeScriptissä. Leikkikenttä ääni-API:ille ja signaali-UX:lle.\nRepo: [AngelicWaves](https://github.com/SamppaFIN/AngelicWaves)  ·  Live: [Info](https://angelicwaves-25d1c2a5b069.herokuapp.com/)`
+      tech: ['TypeScript', 'WebAudio API', 'FFT', 'Canvas'],
+      md: `Real-time audio analysis with WebAudio API, FFT spectrum, and frequency tracking.\nRepo: [AngelicWaves](https://github.com/SamppaFIN/AngelicWaves)  ·  Live: [Try It](https://angelicwaves-25d1c2a5b069.herokuapp.com/)`,
+      mdFi: `Reaaliaikainen äänianalyysi WebAudio API:lla, FFT-spektrillä ja taajuusseurannalla.\nRepo: [AngelicWaves](https://github.com/SamppaFIN/AngelicWaves)  ·  Live: [Kokeile](https://angelicwaves-25d1c2a5b069.herokuapp.com/)`
     },
     { 
       id: 'RAG-Demo', 
-      title: 'RAG-Demo', 
-      titleFi: 'RAG-Demo',
+      title: 'RAG-Demo - Retrieval Augmented Generation', 
+      titleFi: 'RAG-Demo - Haun Tuoma Generointi',
       img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop', 
-      md: `Python demo for Retrieval‑Augmented Generation. Shows retrieval, context building and answer synthesis.\nRepo: [RAG-Demo](https://github.com/SamppaFIN/RAG-Demo)`,
-      mdFi: `Python-demo Retrieval-Augmented Generationille. Näyttää haku, kontekstin rakentamisen ja vastausten synteesin.\nRepo: [RAG-Demo](https://github.com/SamppaFIN/RAG-Demo)`
+      tech: ['Python', 'FastAPI', 'ChromaDB', 'OpenAI', 'React'],
+      md: `RAG demonstration with vector search, embeddings, and AI synthesis.\nRepo: [RAG-Demo](https://github.com/SamppaFIN/RAG-Demo)`,
+      mdFi: `RAG-demonstraatio vektorhaulla, upotuksilla ja AI-synteesissä.\nRepo: [RAG-Demo](https://github.com/SamppaFIN/RAG-Demo)`
     },
     { 
       id: 'MergeMaster', 
-      title: 'MergeMaster', 
-      titleFi: 'Yhdistä-Mestari',
+      title: 'MergeMaster - Merge Puzzle Game', 
+      titleFi: 'MergeMaster - Yhdistämispulmapeli',
       img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop', 
-      md: `A small browser game built in one hour with my 8‑year‑old son — joyful learning and rapid prototyping. Simple HTML/JS with playful polish.\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)`,
-      mdFi: `Pieni selainpeli, joka rakennettiin tunnissa 8-vuotiaan poikani kanssa — iloista oppimista ja nopeaa prototyyppien tekemistä. Yksinkertainen HTML/JS leikkisällä viimeistelyllä.\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)`
+      tech: ['JavaScript', 'HTML5', 'CSS3'],
+      md: `Browser merge puzzle built in 1 hour with my son. Rapid prototyping fun! 👨‍👦\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)`,
+      mdFi: `Selainpulmapeli rakennettu tunnissa poikani kanssa. Nopea protoilu! 👨‍👦\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)`
     },
     { 
       id: 'CV', 
-      title: 'CV', 
-      titleFi: 'Ansioluettelo',
+      title: 'CV Portfolio - Previous Version', 
+      titleFi: 'CV Portfolio - Edellinen Versio',
       img: 'https://images.unsplash.com/photo-1499914485622-a88fac536970?q=80&w=1600&auto=format&fit=crop', 
-      md: `Personal CV repo that inspired this new bilingual site. Focus on clarity, responsiveness and subtle motion.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [Old site](https://samppafin.github.io/CV/#)`,
-      mdFi: `Henkilökohtainen CV-repo, joka inspiroi tätä uutta kaksikielistä sivustoa. Painopiste selkeydessä, responsiivisuudessa ja hienovaraisessa liikkeessä.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [Vanha sivusto](https://samppafin.github.io/CV/#)`
+      tech: ['HTML5', 'CSS3', 'JavaScript'],
+      md: `Original CV site with timeline, smooth animations, and minimal design.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [View Site](https://samppafin.github.io/CV/#)`,
+      mdFi: `Alkuperäinen CV-sivusto aikajanalla, sujuvilla animaatioilla ja minimalistisella suunnittelulla.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [Katso Sivusto](https://samppafin.github.io/CV/#)`
     },
     { 
       id: 'EldrichHorror', 
-      title: 'EldrichHorror', 
-      titleFi: 'Vanha Kauhu',
+      title: 'EldrichHorror - Game Mechanics Experiments', 
+      titleFi: 'EldrichHorror - Pelimekaniikka-kokeilut',
       img: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1600&auto=format&fit=crop', 
-      md: `TypeScript experiments that later informed Eldritch Sanctuary. Mechanics spikes and rendering tests.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)`,
-      mdFi: `TypeScript-kokeilut, jotka myöhemmin vaikuttivat Eldritch Sanctuaryyn. Mekaniikka-spikejä ja renderöintitestejä.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)`
+      tech: ['TypeScript', 'Canvas', 'Game Dev'],
+      md: `Horror game mechanics with procedural generation and rendering experiments.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)`,
+      mdFi: `Kauhupelikokeilut proseduraalisella generoinnilla ja renderöintikokeiluilla.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)`
     }
   ];
 
+  // GitHub-style tech colors
+  const techColors = {
+    'JavaScript': '#f1e05a', 'TypeScript': '#3178c6', 'Python': '#3572A5', 'React': '#61dafb',
+    'Node.js': '#68a063', 'HTML5': '#e34c26', 'CSS3': '#563d7c', 'PostgreSQL': '#336791',
+    'WebSocket': '#010101', 'AI': '#ff6b6b', 'ML': '#ee4c2c', 'NLP': '#4c9aff', 
+    'OCR': '#ff9c27', 'FastAPI': '#009688', 'ChromaDB': '#ff5722', 'OpenAI': '#74aa9c',
+    'Supabase': '#3ecf8e', 'JWT': '#d63aff', 'WebAudio API': '#ff6f00', 'FFT': '#00bcd4',
+    'Canvas': '#e91e63', 'Game Dev': '#8bc34a', 'Embeddings': '#9c27b0', 'API': '#ff9800',
+    'Perplexity AI': '#6366f1', 'AI/ML': '#ff6b6b', 'Multiplayer': '#00acc1'
+  };
+  
   function renderProjects(){
     const grid = document.getElementById('projectsGrid');
+    if (!grid) return;
+    
     const isFinnish = I18N.state.lang === 'fi';
     grid.innerHTML = projects.map(p=>`
       <article class="project" data-proj-id="${p.id}">
@@ -259,6 +340,7 @@
         <div class="content">
           <div class="title">${isFinnish ? p.titleFi : p.title}</div>
           <div class="md">${mdToHtml(isFinnish ? p.mdFi : p.md)}</div>
+          <div class="tech-tags">${p.tech.map(t=>`<span class="tech-tag" style="background-color: ${techColors[t] || '#666'}; color: ${techColors[t] ? '#fff' : '#fff'}">${t}</span>`).join('')}</div>
         </div>
       </article>
     `).join('');
@@ -268,6 +350,9 @@
       card.addEventListener('click', ()=>openProjectModal(card.getAttribute('data-proj-id')));
     });
   }
+  
+  // Expose renderProjects globally so i18n can trigger it
+  window.renderProjects = renderProjects;
 
   // Modal logic
   const modal = document.getElementById('projectModal');

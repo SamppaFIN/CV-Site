@@ -29,11 +29,15 @@ html[data-theme="light"] {
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   color: var(--text);
   background: var(--bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
@@ -44,6 +48,7 @@ body {
     radial-gradient(600px 400px at 10% 80%, rgba(74,158,255,.08), transparent 60%),
     radial-gradient(600px 400px at 90% 10%, rgba(0,255,136,.08), transparent 60%);
   opacity: 0.6; /* Reduce opacity to let Sacred Geometry show through */
+  transition: opacity 0.3s ease;
 }
 
 /* Glass */
@@ -79,7 +84,10 @@ body {
 
 /* Skills */
 .skills-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
-.card { padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); }
+.card { padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); transition: all 0.3s ease; }
+.card.aurora-card { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+.card.aurora-card:hover { border-color: var(--accent); box-shadow: 0 4px 12px rgba(74,158,255,0.2); }
+.card.aurora-card:active { transform: scale(0.98); }
 .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 8px 0 0; }
 .tags li { padding: 6px 10px; border-radius: 999px; background: var(--glass); border: 1px solid var(--border); }
 .subtle { color: var(--muted); margin: 6px 0 8px; }
@@ -87,11 +95,16 @@ body {
 
 /* Projects */
 .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-.project { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--card); display: grid; grid-template-rows: 160px 1fr; }
-.project img { width: 100%; height: 160px; object-fit: cover; display: block; filter: saturate(1.1); }
-.project .content { padding: 12px; }
-.project .title { font-weight: 700; margin: 0 0 6px; }
-.project .md { color: var(--muted); font-family: JetBrains Mono, monospace; font-size: 12.5px; line-height: 1.45; white-space: pre-wrap; }
+.project { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--card); display: flex; flex-direction: column; height: 380px; }
+.project img { width: 100%; height: 120px; object-fit: cover; display: block; filter: saturate(1.1); flex-shrink: 0; }
+.project .content { padding: 32px 12px 12px 12px; display: flex; flex-direction: column; flex: 1; min-height: 0; justify-content: center; }
+.project .title { font-weight: 700; margin: 0 0 6px; font-size: 14px; line-height: 1.2; }
+.project .md { color: var(--muted); font-size: 12px; line-height: 1.4; margin-bottom: auto; }
+.project .md p { margin: 0 0 4px; }
+.project .md a { color: var(--accent); text-decoration: none; }
+.project .md a:hover { text-decoration: underline; }
+.project .tech-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.project .tech-tag { font-size: 10px; padding: 3px 8px; border-radius: 12px; font-weight: 600; white-space: nowrap; }
 
 /* Timeline */
 .timeline { border-left: 2px dashed var(--border); padding-left: 16px; display: grid; gap: 14px; }
