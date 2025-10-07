@@ -290,6 +290,24 @@
       mdFi: `RAG-demonstraatio vektorhaulla, upotuksilla ja AI-synteesissä.\nRepo: [RAG-Demo](https://github.com/SamppaFIN/RAG-Demo)`
     },
     { 
+      id: 'CosmicTarot', 
+      title: 'Cosmic Tarot - Consciousness-Aware Divination', 
+      titleFi: 'Cosmic Tarot - Tietoisuus d7Tarot -sovellus',
+      img: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop', 
+      tech: ['JavaScript', 'HTML5', 'CSS3'],
+      md: `Mobile-first tarot journey with 5 emotional questions and personalized readings.\nLive: [Open App](https://samppafin.github.io/tarot-game/)`,
+      mdFi: `Mobiili-ensimm e4inen tarot-matka, 5 tunnekyss f6 ell e4 ja personoidut tulkinnat.\nLive: [Avaa](https://samppafin.github.io/tarot-game/)`
+    },
+    { 
+      id: 'AuroraSecurityDojo', 
+      title: "Aurora's Security Dojo - Consciousness-Aware Security", 
+      titleFi: 'Auroran Turvadojo - Tietoisuustietoinen turvallisuus',
+      img: 'https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1600&auto=format&fit=crop', 
+      tech: ['Security', 'Education', 'Web'],
+      md: `Consciousness-first security dojo with ethical, educational vulnerability labs.\nLive: [Enter Dojo](https://auroras-security-dojo-f188e6eb5e87.herokuapp.com/)`,
+      mdFi: `Tietoisuus-ensin turvadojo eettisill e4, opetuksellisilla haasteilla.\nLive: [Avaa Dojo](https://auroras-security-dojo-f188e6eb5e87.herokuapp.com/)`
+    },
+    { 
       id: 'MergeMaster', 
       title: 'MergeMaster - Merge Puzzle Game', 
       titleFi: 'MergeMaster - Yhdistämispulmapeli',
@@ -313,8 +331,8 @@
       titleFi: 'EldrichHorror - Pelimekaniikka-kokeilut',
       img: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1600&auto=format&fit=crop', 
       tech: ['TypeScript', 'Canvas', 'Game Dev'],
-      md: `Horror game mechanics with procedural generation and rendering experiments.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)`,
-      mdFi: `Kauhupelikokeilut proseduraalisella generoinnilla ja renderöintikokeiluilla.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)`
+      md: `Horror game mechanics with procedural generation and rendering experiments.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)  ·  Live: [Play](https://samppafin.github.io/EldrichHorror/game/index.html)`,
+      mdFi: `Kauhupelikokeilut proseduraalisella generoinnilla ja renderöintikokeiluilla.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)  ·  Live: [Pelaa](https://samppafin.github.io/EldrichHorror/game/index.html)`
     }
   ];
 
