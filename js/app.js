@@ -326,15 +326,6 @@
       tech: ['HTML5', 'CSS3', 'JavaScript'],
       md: `Original CV site with timeline, smooth animations, and minimal design.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [View Site](https://samppafin.github.io/CV/#)`,
       mdFi: `Alkuperäinen CV-sivusto aikajanalla, sujuvilla animaatioilla ja minimalistisella suunnittelulla.\nRepo: [CV](https://github.com/SamppaFIN/CV)  ·  Live: [Katso Sivusto](https://samppafin.github.io/CV/#)`
-    },
-    { 
-      id: 'EldrichHorror', 
-      title: 'EldrichHorror - Game Mechanics Experiments', 
-      titleFi: 'EldrichHorror - Pelimekaniikka-kokeilut',
-      img: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1600&auto=format&fit=crop', 
-      tech: ['TypeScript', 'Canvas', 'Game Dev'],
-      md: `Horror game mechanics with procedural generation and rendering experiments.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)  ·  Live: [Play](https://samppafin.github.io/EldrichHorror/game/index.html)`,
-      mdFi: `Kauhupelikokeilut proseduraalisella generoinnilla ja renderöintikokeiluilla.\nRepo: [EldrichHorror](https://github.com/SamppaFIN/EldrichHorror)  ·  Live: [Pelaa](https://samppafin.github.io/EldrichHorror/game/index.html)`
     }
   ];
 
