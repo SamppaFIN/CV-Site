@@ -301,15 +301,6 @@
       mdFi: `Mobiili-ensimmäinen tarot-matka, 5 tunnekysymystä ja personoidut tulkinnat.\nLive: [Avaa](https://samppafin.github.io/tarot-game/)`
     },
     { 
-      id: 'AuroraSecurityDojo', 
-      title: "Aurora's Security Dojo - Consciousness-Aware Security", 
-      titleFi: 'Auroran Turvadojo - Tietoisuustietoinen turvallisuus',
-      img: 'https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1600&auto=format&fit=crop', 
-      tech: ['Security', 'Education', 'Web'],
-      md: `Consciousness-first security dojo with ethical, educational vulnerability labs.\nLive: [Enter Dojo](https://auroras-security-dojo-f188e6eb5e87.herokuapp.com/)`,
-      mdFi: `Tietoisuus-ensin turvadojo eettisille, opetuksellisilla haasteilla.\nLive: [Avaa Dojo](https://auroras-security-dojo-f188e6eb5e87.herokuapp.com/)`
-    },
-    { 
       id: 'MergeMaster', 
       title: 'MergeMaster - Merge Puzzle Game', 
       titleFi: 'MergeMaster - Yhdistämispulmapeli',
