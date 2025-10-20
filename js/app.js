@@ -309,6 +309,15 @@
       md: `Browser merge puzzle built in 1 hour with my son. Rapid prototyping fun! 👨‍👦\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)`,
       mdFi: `Selainpulmapeli rakennettu tunnissa poikani kanssa. Nopea protoilu! 👨‍👦\nRepo: [MergeMaster](https://github.com/SamppaFIN/MergeMaster)`
     },
+    {
+      id: 'InsuranceGapReview',
+      title: 'Insurance Gap Review – Coverage Checker',
+      titleFi: 'Insurance Gap Review – Vakuutusten kattavuustarkistin',
+      img: 'https://images.unsplash.com/photo-1581091012184-7c54c4a52c3b?q=80&w=1600&auto=format&fit=crop',
+      tech: ['Vanilla JS', 'HTML5', 'CSS3', 'PDF.js'],
+      md: `Lightweight PWA to upload and analyze your insurance documents directly in the browser. Detects missing or overlapping coverage based on Finnish health and home baselines. 🏠💊\nLive: [Insurance Gap Review](https://samppafin.github.io/Insurance-Gap-Review/)\nRepo: [GitHub](https://github.com/SamppaFIN/Insurance-Gap-Review)`,
+      mdFi: `Kevyt selainpohjainen sovellus vakuutusten vertailuun ja aukkojen löytämiseen. Tunnistaa päällekkäisyydet ja puuttuvat kohdat Suomen terveys- ja kotivakuutusperusteiden mukaan. 🏠💊\nLive: [Insurance Gap Review](https://samppafin.github.io/Insurance-Gap-Review/)\nRepo: [GitHub](https://github.com/SamppaFIN/Insurance-Gap-Review)`
+    },
     { 
       id: 'CV', 
       title: 'CV Portfolio - Previous Version', 
